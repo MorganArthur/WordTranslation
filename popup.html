@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      width: 300px;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 5px;
+    }
+    
+    .subtitle {
+      font-size: 12px;
+      color: #666;
+    }
+    
+    .start-btn {
+      width: 100%;
+      height: 45px;
+      background: linear-gradient(45deg, #4CAF50, #45a049);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-bottom: 15px;
+      transition: all 0.3s ease;
+    }
+    
+    .start-btn:hover {
+      background: linear-gradient(45deg, #45a049, #4CAF50);
+      transform: translateY(-2px);
+    }
+    
+    .start-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .status {
+      text-align: center;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      display: none;
+    }
+    
+    .status.info {
+      background: #e3f2fd;
+      color: #1976d2;
+      border: 1px solid #bbdefb;
+    }
+    
+    .status.success {
+      background: #e8f5e8;
+      color: #2e7d32;
+      border: 1px solid #c8e6c9;
+    }
+    
+    .status.error {
+      background: #ffebee;
+      color: #c62828;
+      border: 1px solid #ffcdd2;
+    }
+    
+    .instructions {
+      font-size: 12px;
+      color: #666;
+      line-height: 1.4;
+      background: #f5f5f5;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+    
+    .instructions ol {
+      margin: 5px 0;
+      padding-left: 15px;
+    }
+    
+    .translation-result {
+      margin-top: 15px;
+      padding: 10px;
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 5px;
+      display: none;
+    }
+    
+    .original-text {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 8px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 5px;
+    }
+    
+    .translated-text {
+      font-size: 14px;
+      color: #333;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="title">屏幕翻译助手</div>
+    <div class="subtitle">选择区域识别英文并翻译</div>
+  </div>
+  
+  <div id="status" class="status"></div>
+  
+  <button id="startCapture" class="start-btn">开始截图翻译</button>
+  
+  <div class="instructions">
+    <strong>使用说明：</strong>
+    <ol>
+      <li>点击"开始截图翻译"按钮</li>
+      <li>在页面上拖拽选择要翻译的区域</li>
+      <li>等待文字识别和翻译完成</li>
+      <li>查看翻译结果</li>
+    </ol>
+  </div>
+  
+  <div id="translationResult" class="translation-result">
+    <div class="original-text">
+      <strong>识别文字：</strong>
+      <div id="originalText"></div>
+    </div>
+    <div class="translated-text">
+      <strong>翻译结果：</strong>
+      <div id="translatedText"></div>
+    </div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
