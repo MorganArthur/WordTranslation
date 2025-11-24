@@ -5,8 +5,8 @@
 // 3. config.js 已被添加到 .gitignore，不会被提交到仓库
 
 const aliCloudConfig = {
-  accessKeyId: '', // 请在此处填入您的AccessKeyId
-  accessKeySecret: '', // 请在此处填入您的AccessKeySecret
+  accessKeyId: 'LTAI4FizQqYM1cNVH52exRBf', // 请在此处填入您的AccessKeyId
+  accessKeySecret: 'cSAT5Wwff9ecdDkZFX0UBupsh198US', // 请在此处填入您的AccessKeySecret
   endpoint: 'http://mt.cn-hangzhou.aliyuncs.com',
   apiPath: '/api/translate/web/ecommerce'
 };
