@@ -3,6 +3,44 @@
 <head>
   <meta charset="utf-8">
   <style>
+    /* 添加设置按钮样式 */
+    .settings-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: #666;
+      cursor: pointer;
+      font-size: 20px;
+      padding: 0;
+    }
+    
+    .settings-btn:hover {
+      color: #4CAF50;
+    }
+    
+    .required-config-notice {
+      background: #ffebee;
+      color: #c62828;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      font-size: 13px;
+      text-align: center;
+      display: none;
+    }
+    
+    .required-config-notice a {
+      color: #1976d2;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    
+    .required-config-notice a:hover {
+      text-decoration: underline;
+    }
+    
     body {
       width: 300px;
       padding: 20px;
@@ -117,8 +155,13 @@
 </head>
 <body>
   <div class="header">
+    <button id="settingsBtn" class="settings-btn" title="设置">⚙️</button>
     <div class="title">屏幕翻译助手</div>
     <div class="subtitle">选择区域识别英文并翻译</div>
+  </div>
+  
+  <div id="configNotice" class="required-config-notice">
+    请先<a href="#" id="configLink">配置翻译API</a>以开始使用
   </div>
   
   <div id="status" class="status"></div>

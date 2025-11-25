@@ -9,6 +9,7 @@
     "storage",
     "tabs"
   ],
+  "options_page": "config.html",
   "host_permissions": [
     "<all_urls>"
   ],
@@ -34,7 +35,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["lib/*"],
+      "resources": ["lib/*", "config.html", "config.js"],
       "matches": ["<all_urls>"]
     }
   ],

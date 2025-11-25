@@ -3,7 +3,7 @@ chrome.runtime.onInstalled.addListener(function() {
   console.log('屏幕翻译助手已安装');
 });
 
-// 从配置文件加载API配置
+// 从Chrome存储加载API配置
 let aliCloudConfig = {
   accessKeyId: '',
   accessKeySecret: '',
@@ -15,6 +15,21 @@ let ocrSpaceConfig = {
   apiKey: 'helloworld' // 默认使用免费API密钥
 };
 
+// 加载保存的配置
+function loadConfig() {
+  chrome.storage.sync.get(['aliCloudConfig'], function(result) {
+    if (result.aliCloudConfig) {
+      aliCloudConfig = {...aliCloudConfig, ...result.aliCloudConfig};
+      console.log('配置已加载');
+    } else {
+      console.log('未找到保存的配置');
+    }
+  });
+}
+
+// 初始加载配置
+loadConfig();
+
 // 尝试加载配置文件
 try {
   // 注意：在Chrome扩展中，需要通过其他方式加载配置
@@ -24,8 +39,32 @@ try {
   console.log('使用默认配置，请在扩展设置中配置API密钥以获得更好的服务');
 }
 
-// 监听来自content script的消息
+// 监听来自content script和popup的消息
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  // 处理API测试请求
+  if (request.action === "testTranslationApi") {
+    const testConfig = request.config;
+    const testText = "Hello, world!";
+    
+    // 使用测试配置临时覆盖全局配置
+    const originalConfig = {...aliCloudConfig};
+    aliCloudConfig = {...aliCloudConfig, ...testConfig};
+    
+    translateText(testText)
+      .then(translatedText => {
+        sendResponse({success: true, translatedText: translatedText});
+      })
+      .catch(error => {
+        sendResponse({success: false, error: error.message || "API测试失败"});
+      })
+      .finally(() => {
+        // 恢复原始配置
+        aliCloudConfig = originalConfig;
+      });
+    
+    return true; // 表示异步响应
+  }
+  
   // 处理OCR识别到的文本
   if (request.action === "processText") {
     const text = request.text;

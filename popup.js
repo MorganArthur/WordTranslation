@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', function() {
   const translationResultElement = document.getElementById('translationResult');
   const originalTextElement = document.getElementById('originalText');
   const translatedTextElement = document.getElementById('translatedText');
+  const settingsButton = document.getElementById('settingsBtn');
+  const configNotice = document.getElementById('configNotice');
+  const configLink = document.getElementById('configLink');
   
   // 显示状态消息的辅助函数
   function showStatus(message, type = 'info') {
@@ -18,6 +21,37 @@ document.addEventListener('DOMContentLoaded', function() {
       }, 10000);
     }
   }
+  
+  // 检查API配置是否完整
+  function checkApiConfig() {
+    chrome.storage.sync.get(['aliCloudConfig'], function(result) {
+      if (result.aliCloudConfig && 
+          result.aliCloudConfig.accessKeyId && 
+          result.aliCloudConfig.accessKeySecret) {
+        // 配置完整，隐藏提醒
+        configNotice.style.display = 'none';
+        startCaptureButton.disabled = false;
+      } else {
+        // 配置不完整，显示提醒
+        configNotice.style.display = 'block';
+        startCaptureButton.disabled = true;
+      }
+    });
+  }
+  
+  // 打开配置页面
+  function openConfigPage() {
+    chrome.tabs.create({
+      url: chrome.runtime.getURL('config.html')
+    });
+  }
+  
+  // 设置按钮点击事件
+  settingsButton.addEventListener('click', openConfigPage);
+  configLink.addEventListener('click', function(e) {
+    e.preventDefault();
+    openConfigPage();
+  });
   
   // 开始捕获屏幕区域
   startCaptureButton.addEventListener('click', function() {
@@ -60,6 +94,16 @@ document.addEventListener('DOMContentLoaded', function() {
       showStatus('翻译完成!', 'success');
       
       sendResponse({success: true});
+    }
+  });
+  
+  // 页面加载时检查配置
+  checkApiConfig();
+  
+  // 监听存储变化，当配置更新时重新检查
+  chrome.storage.onChanged.addListener(function(changes, namespace) {
+    if (namespace === 'sync' && changes.aliCloudConfig) {
+      checkApiConfig();
     }
   });
 });

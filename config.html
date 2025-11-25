@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      width: 400px;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      background: #f8f9fa;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+    
+    .title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 5px;
+    }
+    
+    .subtitle {
+      font-size: 14px;
+      color: #666;
+    }
+    
+    .config-section {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .section-title {
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #4CAF50;
+      padding-bottom: 5px;
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    .form-label {
+      display: block;
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 5px;
+      font-weight: 500;
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: #4CAF50;
+      box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+    }
+    
+    .help-text {
+      font-size: 12px;
+      color: #666;
+      margin-top: 5px;
+      line-height: 1.4;
+    }
+    
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    
+    .btn {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary {
+      background: #4CAF50;
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background: #45a049;
+    }
+    
+    .btn-secondary {
+      background: #f8f9fa;
+      color: #333;
+      border: 1px solid #ddd;
+    }
+    
+    .btn-secondary:hover {
+      background: #e9ecef;
+    }
+    
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    
+    .status {
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      display: none;
+      text-align: center;
+    }
+    
+    .status.success {
+      background: #e8f5e8;
+      color: #2e7d32;
+      border: 1px solid #c8e6c9;
+    }
+    
+    .status.error {
+      background: #ffebee;
+      color: #c62828;
+      border: 1px solid #ffcdd2;
+    }
+    
+    .info-box {
+      background: #e3f2fd;
+      border: 1px solid #bbdefb;
+      border-radius: 4px;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .info-box h4 {
+      margin: 0 0 10px 0;
+      color: #1976d2;
+      font-size: 14px;
+    }
+    
+    .info-box p {
+      margin: 5px 0;
+      font-size: 12px;
+      line-height: 1.4;
+      color: #333;
+    }
+    
+    .info-box a {
+      color: #1976d2;
+      text-decoration: none;
+    }
+    
+    .info-box a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="title">API 配置</div>
+    <div class="subtitle">配置翻译服务的API密钥</div>
+  </div>
+  
+  <div id="status" class="status"></div>
+  
+  <div class="info-box">
+    <h4>🔑 获取阿里云API密钥</h4>
+    <p>1. 登录 <a href="https://ram.console.aliyun.com/manage/ak" target="_blank">阿里云RAM控制台</a></p>
+    <p>2. 创建或查看AccessKey，获取AccessKeyId和AccessKeySecret</p>
+    <p>3. 确保账户已开通机器翻译服务并有足够余额</p>
+    <p>4. 将密钥填入下方表单并保存</p>
+  </div>
+  
+  <div class="config-section">
+    <div class="section-title">阿里云翻译API</div>
+    
+    <div class="form-group">
+      <label class="form-label" for="accessKeyId">AccessKeyId *</label>
+      <input type="text" id="accessKeyId" class="form-input" placeholder="请输入您的AccessKeyId">
+      <div class="help-text">用于访问阿里云翻译服务的访问密钥ID</div>
+    </div>
+    
+    <div class="form-group">
+      <label class="form-label" for="accessKeySecret">AccessKeySecret *</label>
+      <input type="password" id="accessKeySecret" class="form-input" placeholder="请输入您的AccessKeySecret">
+      <div class="help-text">访问密钥的密码，请妥善保管</div>
+    </div>
+  </div>
+  
+  <div class="button-group">
+    <button id="saveConfig" class="btn btn-primary">保存配置</button>
+    <button id="testConfig" class="btn btn-secondary">测试连接</button>
+  </div>
+  
+  <script src="config.js"></script>
+</body>
+</html>
